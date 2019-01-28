@@ -26,11 +26,7 @@
         <activity
             android:name=".Activities.MainActivity"
             tools:ignore="InnerclassSeparator">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.DetailActivity"
@@ -38,7 +34,13 @@
         <activity
             android:name=".Activities.MapActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".Activities.SplashActivity" />
+        <activity android:name=".Activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".Data.PlaceContentProvider"
@@ -51,10 +53,12 @@
         <service
             android:name=".HelperClasses.GeofenceTransitionsIntentService"
             tools:ignore="InnerclassSeparator" />
-        <service android:name=".WidgetData.WidgetCafeAppService"
+        <service
+            android:name=".WidgetData.WidgetCafeAppService"
             tools:ignore="InnerclassSeparator" />
 
-        <receiver android:name=".WidgetData.CafeAppWidget"
+        <receiver
+            android:name=".WidgetData.CafeAppWidget"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

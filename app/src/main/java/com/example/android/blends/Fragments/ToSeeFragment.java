@@ -88,7 +88,7 @@ public class ToSeeFragment extends Fragment
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(ID_PLACE_LOADER, null, this);
         } else {
-            Log.e(TAG, "onCreateView: Loader not connected");
+            Log.v(TAG, "onCreateView: Loader not connected");
         }
         getLoaderManager().initLoader(ID_PLACE_LOADER, null, this);
         return rootView;

@@ -20,23 +20,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String TO_SEE = "To see";
     private static final String FAVORITE = "Favorites";
-//    private static int SPLASH_TIME_OUT = 4;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent splashIntent = new Intent(MainActivity.this, SplashActivity.class);
-//                startActivity(splashIntent);
-//                finish();
-//            }
-//        }, SPLASH_TIME_OUT);
-
         Stetho.initializeWithDefaults(this);
 
         Toolbar toolbar = findViewById(R.id.main_activity_id_toolbar);
