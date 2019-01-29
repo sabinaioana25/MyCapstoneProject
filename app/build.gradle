@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        BlendsApp {
+        config {
             keyAlias 'udacity'
             keyPassword 'parola'
-            storeFile file("${rootDir}/keystore.jks")
+            storeFile file('D:/AND/MyCapstoneProject/keystore.jks')
             storePassword 'parola'
         }
     }
@@ -23,9 +23,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.BlendsApp
+            signingConfig signingConfigs.config
         }
     }
 }
