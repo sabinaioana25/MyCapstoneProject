@@ -13,11 +13,10 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +25,6 @@ import com.example.android.blends.Loaders.DetailPlacesLoader;
 import com.example.android.blends.Objects.PlaceModel;
 import com.example.android.blends.Objects.ReviewModel;
 import com.example.android.blends.R;
-import com.example.android.blends.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +57,8 @@ public class DetailActivity extends
     private String reviewAuthor;
     private String reviewContent;
     public PlaceModel mObject = new PlaceModel();
-    Button buttonFav;
-    private boolean mIsEnabled;
-    boolean buttonIsSelected = false;
-    private MapActivity geofencing;
-
+    ImageView buttonFav;
+    private boolean buttonIsSelected = false;
 
     private final String[] detailPlaceProjection = new String[]{
             PlacesEntry.COLUMN_PLACE_ID,
@@ -86,49 +81,66 @@ public class DetailActivity extends
             ReviewsEntry.COLUMN_REVIEW_TEXT,
             ReviewsEntry.COLUMN_REVIEW_RATING
     };
-    Switch enalbeGeofence;
+    Switch enableGeofence;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Toolbar toolbar = findViewById(R.id.id_toolbar);
+        Toolbar toolbar = findViewById(R.id.detail_activity_toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(placeName);
         toolbar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent getPlaceDetails = getIntent();
         Bundle extras = getPlaceDetails.getExtras();
+
         if (extras != null) {
             placeId = extras.getString("place id");
         }
-        NetworkUtils.buildDetailPlaceUrl(placeId);
         getSupportLoaderManager().initLoader(ID_CURSOR_DETAIL_PLACES, null, this);
-        getSupportLoaderManager().initLoader(ID_CURSOR_REVIEW_LOADER, null, this);
 
-        mIsEnabled = getPreferences(MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled),
-                false);
-
-        enalbeGeofence = findViewById(R.id.enable_switch);
+        // add to database
         buttonFav = findViewById(R.id.icon_favourite);
         buttonFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (!buttonIsSelected) {
-                    buttonFav.setSelected(true);
-                    buttonIsSelected = true;
-                    Log.e(TAG, "onClick: " + mObject);
+                    addToFavorite();
                     addToDatabaseTable(ID_CURSOR_DETAIL_PLACES, mObject);
                     addToDatabaseTable(ID_CURSOR_REVIEW_LOADER, mObject);
 
                 } else {
-                    buttonFav.setSelected(false);
-                    buttonIsSelected = false;
+                    removeFromFavorite();
                     deleteInfoFromTable();
                 }
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("button selected", buttonIsSelected);
+        outState.putString("cafeAddress", placeFormattedAddress);
+        outState.putString("cafePhone", placePhoneNumber);
+        outState.putString("cafeRating", placeOverallRating);
+        outState.putString("cafeReviewAuthor", reviewAuthor);
+        outState.putString("cafeReviewText", reviewContent);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        buttonIsSelected = savedInstanceState.getBoolean("button selected");
+        placeFormattedAddress = savedInstanceState.getString("cafeAddress");
+        placePhoneNumber = savedInstanceState.getString("cafePhone");
+        placeOverallRating = savedInstanceState.getString("cafeRating");
+        reviewAuthor = savedInstanceState.getString("cafeReviewAuthor");
+        reviewContent = savedInstanceState.getString("cafeReviewText");
     }
 
     @Override
@@ -171,11 +183,15 @@ public class DetailActivity extends
                     placeCursor.moveToFirst();
                     populatePlaceValues(loader.getContext(), placeCursor,
                             ID_CURSOR_DETAIL_PLACES);
+                    addToFavorite();
                     getSupportLoaderManager().initLoader(ID_CURSOR_REVIEW_LOADER, null, this);
                 } else {
-                    getSupportLoaderManager().restartLoader(ID_LOADER_DETAIL_PLACES, null, this);
-                    getSupportLoaderManager().restartLoader(ID_REVIEW_LOADER, null, this);
+                    removeFromFavorite();
+                    getSupportLoaderManager().initLoader(ID_LOADER_DETAIL_PLACES, null,
+                            this);
+                    getSupportLoaderManager().initLoader(ID_REVIEW_LOADER, null, this);
                 }
+
                 break;
             case ID_CURSOR_REVIEW_LOADER:
                 Cursor reviewCursor = (Cursor) object;
@@ -190,18 +206,17 @@ public class DetailActivity extends
             default:
                 break;
         }
+
     }
 
     @Override
     public void onLoaderReset(Loader loader) {
-        // do nothing
     }
 
     public void populatePlaceValues(Context context, final Object object, int type) {
         switch (type) {
             case ID_CURSOR_DETAIL_PLACES:
                 Cursor placeCursor = (Cursor) object;
-
                 placeId = placeCursor.getString(placeCursor.getColumnIndex(PlacesEntry
                         .COLUMN_PLACE_ID));
                 placeName = placeCursor.getString(placeCursor.getColumnIndex(PlacesEntry
@@ -241,11 +256,27 @@ public class DetailActivity extends
         }
         // place address
         TextView placeFormAddressTextView = findViewById(R.id.text_view_cafe_address);
-        placeFormAddressTextView.setText(placeFormattedAddress);
+        String[] strAdress = placeFormattedAddress.split(",");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int j = 0; j < strAdress.length; j++) {
+            stringBuilder.append(strAdress[j]);
+            if (j < stringBuilder.length() - 1) {
+                stringBuilder.append("\n");
+            }
+        }
+        placeFormAddressTextView.setText(stringBuilder.toString());
 
         // place open schedule
         TextView weekDaysTextView = findViewById(R.id.text_view_days);
-        weekDaysTextView.setText(placeSchedule);
+        String[] str = placeSchedule.replaceAll("\\[|\\]|\"", "").split(",");
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < str.length; i++) {
+            builder.append(str[i]);
+            if (i < str.length - 1) {
+                builder.append("\n");
+            }
+        }
+        weekDaysTextView.setText(builder.toString());
 
         // place contact number
         TextView phoneNumberTextView = findViewById(R.id.text_view_phone_number);
@@ -254,6 +285,8 @@ public class DetailActivity extends
         // place rating
         TextView tvPlaceOverallRating = findViewById(R.id.textViewOverallRatingValue);
         tvPlaceOverallRating.setText(placeOverallRating);
+
+
     }
 
     private void populateReviewValues(final Object object, int type) {
@@ -274,14 +307,13 @@ public class DetailActivity extends
             case ID_LOADER_DETAIL_PLACES:
                 mObject = (PlaceModel) object;
                 reviewsEntryList = mObject.getReviews();
-                break;
         }
-        TextView reviewAuthorTextView = findViewById(R.id.textViewReviewAuthor);
-        TextView reviewContentTextView = findViewById(R.id.textViewReviewContent);
+
+        TextView reviewAuthorTextView = findViewById(R.id.detail_activity_review_author);
+        TextView reviewContentTextView = findViewById(R.id.detail_activity_review_text);
 
         reviewAuthorTextView.setText(reviewAuthor + ":");
         reviewContentTextView.setText(reviewContent);
-
     }
 
     public void addToDatabaseTable(int loaderType, Object object) {
@@ -323,9 +355,9 @@ public class DetailActivity extends
 
                 if (reviewsEntryList != null) {
                     for (int i = 0; i < reviewsEntryList.size(); i++) {
-                        cursorReviewAuthor = reviewsEntryList.get(0).getReviewAuthorName();
-                        cursorReviewText = reviewsEntryList.get(0).getReviewText();
-                        cursorReviewRating = reviewsEntryList.get(0).getReviewRating();
+                        cursorReviewAuthor = reviewsEntryList.get(i).getReviewAuthorName();
+                        cursorReviewText = reviewsEntryList.get(i).getReviewText();
+                        cursorReviewRating = reviewsEntryList.get(i).getReviewRating();
 
                         contentValues.put(ReviewsEntry.COLUMN_REVIEW_PLACE_ID, placeId);
                         contentValues.put(ReviewsEntry.COLUMN_REVIEW_AUTHOR, cursorReviewAuthor);
@@ -362,27 +394,33 @@ public class DetailActivity extends
             Intent showPlaceOnMap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + lat + ">," +
                     "<" + lng + ">?q=<" + lat + ">,<" + lng + ">(" + placeName + ")"));
             startActivity(showPlaceOnMap);
-        } else if (id == R.id.action_settings) {
-            //do something later
-            Toast.makeText(this, "Hahaha", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.action_share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
 
-//            enalbeGeofence.setChecked(mIsEnabled);
-//            enalbeGeofence.setOnCheckedChangeListener(new CompoundButton
-// .OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-//                    editor.putBoolean(getString(R.string.setting_enabled), isChecked);
-//                    mIsEnabled = isChecked;
-//                    editor.commit();
-//                    if (isChecked) geofencing.registerAllGeofences();
-//                    else geofencing.unRegisterAllGeofences();
-//                }
-//            });
+            try {
+                // Check if the Twitter app is installed on the phone.
+                this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+                intent.setClassName("com.twitter.android", "com.twitter.android.composer" +
+                        ".ComposerActivity");
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Your text");
+                startActivity(intent);
 
-        } else {
-            //do another thing later
+            } catch (Exception e) {
+                Toast.makeText(this, "Twitter is not installed on this device", Toast
+                        .LENGTH_LONG).show();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addToFavorite() {
+        buttonFav.setImageResource(R.drawable.ic_favorite_24px);
+        buttonIsSelected = true;
+    }
+
+    private void removeFromFavorite() {
+        buttonFav.setImageResource(R.drawable.ic_favourite_border);
+        buttonIsSelected = false;
     }
 }

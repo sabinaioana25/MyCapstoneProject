@@ -28,8 +28,8 @@ laoreet reprimique, an usu singulis laboramus
 temporibus. E os odio esse aliquip an, duo novum
 fabellas no. </string>
     <string name="edit_text_search">Enter cafe name or address</string>
-    <string name="todo1">TODO</string>
-    <string name="todo2">TODO</string>
+    <!--<string name="todo1">TODO</string>-->
+    <!--<string name="todo2">TODO</string>-->
     <string name="geofence_transition_invalid_type">Invalid geofence transition</string>
     <string name="geofence_transition_entered">Entered</string>
     <string name="geofence_transition_exited">Exited</string>
@@ -46,4 +46,8 @@ fabellas no. </string>
     <string name="sample_widget_name">Katie\'s Coffee</string>
     <string name="sample_widget_address">6 Rembrandt Close</string>
     <string name="sample_widget_number">0776 494 7699</string>
+    <string name="sample_logo_descrp">Cafe Image</string>
+    <string name="todo">TODO</string>
+    <!--<string name="todo">TODO2</string>-->
+    <!--<string name="todo2">TODO3</string>-->
 </resources>

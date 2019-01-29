@@ -71,7 +71,6 @@ public class JSONUtils {
             String lat;
             String lng;
 
-
             for (int i = 0; i < jsonResults.length(); i++) {
 
                 JSONObject placeJsonObject = jsonResults.getJSONObject(i);
@@ -133,7 +132,6 @@ public class JSONUtils {
             return null;
         }
         try {
-
             String name;
             String website;
             String formatted_address;
@@ -169,17 +167,18 @@ public class JSONUtils {
             website = jsonDetailResult.optString(WEBSITE);
 
             // extract json for reviews
-            JSONArray singlePlaceReviews = jsonDetailResult.optJSONArray(PLACE_REVIEWS);
+            JSONArray singlePlaceReviews = jsonDetailResult.getJSONArray(PLACE_REVIEWS);
             if (singlePlaceReviews.length() > 0) {
                 for (int j = 0; j < singlePlaceReviews.length(); j++) {
-                    JSONObject singleReview = singlePlaceReviews.optJSONObject(0);
+                    JSONObject singleReview = singlePlaceReviews.getJSONObject(j);
                     review_author_name = singleReview.optString(REVIEW_AUTHOR_NAME);
-                    reviews_rating = singleReview.optString(RATING);
                     review_text = singleReview.optString(REVIEW_TEXT);
-
+                    reviews_rating = singleReview.optString(RATING);
                     reviewModelPlace.add(new ReviewModel(review_author_name,
                             review_text, reviews_rating));
                 }
+
+                Log.i(TAG, "extractPlaceDetailsFromJson: " );
             }
             ReviewModel reviewModelDetail = new ReviewModel(
                     review_author_name,

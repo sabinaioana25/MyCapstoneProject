@@ -25,12 +25,15 @@
 
         <activity
             android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator">
 
         </activity>
         <activity
             android:name=".Activities.DetailActivity"
-            tools:ignore="InnerclassSeparator" />
+            android:parentActivityName=".Activities.MainActivity"
+            tools:ignore="InnerclassSeparator"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.MapActivity"
             tools:ignore="InnerclassSeparator" />

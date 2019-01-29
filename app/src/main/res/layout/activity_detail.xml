@@ -1,119 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activities.MainActivity">
+    android:fitsSystemWindows="true">
 
-    <include layout="@layout/toolbar" />
-
-    <Button
-        android:id="@+id/icon_favourite"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="-72dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/selector_button"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <ScrollView
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/detail_activity_app_bar"
+        style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:fitsSystemWindows="true">
 
-        <android.support.constraint.ConstraintLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/detail_activity_collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/coll_toolbar_height"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@color/colorAccent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@drawable/main_background_image_gradient" />
+
+            <ImageView
+                android:id="@+id/icon_favourite"
+                android:layout_width="@dimen/detail_activity_fav_button_dimens"
+                android:layout_height="@dimen/detail_activity_fav_button_dimens"
+                android:layout_gravity="bottom|right"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/box_medium"
+                android:layout_marginRight="@dimen/box_medium"
+                android:layout_marginBottom="@dimen/box_medium_small"
+                android:background="@drawable/selector_button"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detail_activity_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Base.ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin"
+                app:theme="@style/ToolBarStyle" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="visible">
 
             <TextView
                 android:id="@+id/text_view_cafe_address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="@dimen/margin_xx_large"
+
+                android:layout_marginRight="@dimen/margin_xx_large"
+                android:drawableLeft="@drawable/ic_place_pin"
+                android:drawablePadding="@dimen/margin_medium"
+                android:text="@string/sample_widget_address" />
 
             <ImageView
                 android:id="@+id/image_view_horiz_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:src="@drawable/shape_horiz_line"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_cafe_address" />
+                android:layout_marginStart="@dimen/margin_xx_large"
+                android:layout_marginLeft="@dimen/margin_xx_large"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_xx_large"
+                android:layout_marginRight="@dimen/margin_xx_large"
+                android:src="@drawable/shape_horiz_line" />
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/imageView2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_view_horiz_line">
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <include layout="@layout/layout_phone_number" />
-                </LinearLayout>
+                android:layout_marginLeft="@dimen/margin_xx_large"
+                android:layout_marginRight="@dimen/margin_xx_large"
+                android:baselineAligned="false"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <include layout="@layout/layout_open_hours" />
+                    <TextView
+                        android:id="@+id/text_view_phone_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginLeft="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_phone_sign"
+                        android:drawableLeft="@drawable/ic_phone_sign"
+                        android:drawablePadding="@dimen/margin_medium"
+                        android:textSize="@dimen/text_small"
+                        tools:text="@string/sample_widget_number" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_xx_large"
+                        android:layout_marginRight="@dimen/margin_xx_large"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:id="@+id/textViewOverallRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_medium"
+                            android:layout_marginLeft="@dimen/margin_medium"
+
+                            android:text="@string/cafe_rating"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewOverallRatingValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginStart="@dimen/margin_medium"
+                            android:layout_marginLeft="@dimen/margin_medium"
+                            android:drawableStart="@drawable/ic_star_half_24px"
+                            android:drawableLeft="@drawable/ic_star_half_24px"
+                            android:drawablePadding="@dimen/margin_medium"
+                            tools:text="4.5" />
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/imageView2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.74"
-                app:layout_constraintStart_toEndOf="@id/linearLayout2"
-                app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/text_view_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:drawableStart="@drawable/ic_access_time_24px"
+                    android:drawableLeft="@drawable/ic_access_time_24px"
+                    android:drawablePadding="@dimen/margin_medium"
+                    tools:text="Open" />
 
-                <include layout="@layout/layout_overall_rating" />
+
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="19dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xx_large"
+                android:layout_marginLeft="@dimen/margin_xx_large"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_xx_large"
+                android:layout_marginRight="@dimen/margin_xx_large"
+                android:layout_marginBottom="@dimen/margin_medium"
                 android:src="@drawable/shape_horiz_line"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -122,12 +188,11 @@
                 app:layout_constraintVertical_bias="0.39" />
 
             <TextView
-                android:id="@+id/textViewReviewAuthor"
+                android:id="@+id/detail_activity_review_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginStart="@dimen/margin_xx_large"
+                android:layout_marginLeft="@dimen/margin_xx_large"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView2"
@@ -135,23 +200,17 @@
                 tools:text="@string/cafe_short_description" />
 
             <TextView
-                android:id="@+id/textViewReviewContent"
+                android:id="@+id/detail_activity_review_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewReviewAuthor"
-                app:layout_constraintVertical_bias="0.07999998"
+                android:layout_marginStart="@dimen/margin_xx_large"
+                android:layout_marginLeft="@dimen/margin_xx_large"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_xx_large"
+                android:layout_marginRight="@dimen/margin_xx_large"
+                android:layout_marginBottom="@dimen/margin_medium"
                 tools:text="@string/sample_lorem_ipsum_text" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
 
-
-</LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
