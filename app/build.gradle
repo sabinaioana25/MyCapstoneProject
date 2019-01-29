@@ -6,7 +6,7 @@ android {
         BlendsApp {
             keyAlias 'udacity'
             keyPassword 'parola'
-            storeFile file('D:/AND/MyCapstoneProject/keystore.jks')
+            storeFile file("${rootDir}/keystore.jks")
             storePassword 'parola'
         }
     }
