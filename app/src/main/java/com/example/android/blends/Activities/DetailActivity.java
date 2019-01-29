@@ -392,7 +392,7 @@ public class DetailActivity extends
         int id = item.getItemId();
         if (id == R.id.action_view_map) {
             Intent showPlaceOnMap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + lat + ">," +
-                    "<" + lng + ">?q=<" + lat + ">,<" + lng + ">(" + placeName + ")"));
+                    "<" + lng + ">?q=<" + lat + ">,<" + lng + ">(" + placeId + ")"));
             startActivity(showPlaceOnMap);
         } else if (id == R.id.action_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);

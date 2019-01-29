@@ -33,7 +33,8 @@
             android:name=".Activities.DetailActivity"
             android:parentActivityName=".Activities.MainActivity"
             tools:ignore="InnerclassSeparator"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            tools:targetApi="jelly_bean" />
         <activity
             android:name=".Activities.MapActivity"
             tools:ignore="InnerclassSeparator" />
