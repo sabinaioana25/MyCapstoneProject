@@ -89,13 +89,12 @@ public class MapActivity extends AppCompatActivity implements
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136)
     );
-    private static final int GEOFENCE_RADIUS = 500;
-    private static final int GEOFENCE_EXPIRATION = 6000;
+    public static final int GEOFENCE_RADIUS = 500;
+    public static final int GEOFENCE_EXPIRATION = 6000;
     private static final HashMap<String, LatLng> TAP_COFFEE =
             new HashMap<>();
     private static final HashMap<String, LatLng> MY_LOCATION =
             new HashMap<>();
-
 
     // widgets
     private AutoCompleteTextView mSearchText;
@@ -112,7 +111,6 @@ public class MapActivity extends AppCompatActivity implements
     private static ArrayList<LatLng> locations;
     private ArrayList<Geofence> mGeofenceList;
     private Context context;
-    private PendingIntent pendingIntent;
     private String details;
 
 
@@ -134,7 +132,6 @@ public class MapActivity extends AppCompatActivity implements
         mPlacePicker = findViewById(R.id.ic_place_picker);
         geofencingClient = LocationServices.getGeofencingClient(this);
         mGeofenceList = new ArrayList<>();
-
         populateGeofenceList();
     }
 
@@ -417,11 +414,9 @@ public class MapActivity extends AppCompatActivity implements
                     getGeofencePendingIntent()
             ).setResultCallback(this);
         } catch (SecurityException securityException) {
-
             Log.e(TAG, securityException.getMessage());
         }
     }
-
 
     private boolean getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -501,44 +496,45 @@ public class MapActivity extends AppCompatActivity implements
                 }
             };
 
-    private final ResultCallback<PlaceBuffer> updatePlaceDetails = new ResultCallback<PlaceBuffer>() {
-        @Override
-        public void onResult(@NonNull PlaceBuffer places) {
-            if (!places.getStatus().isSuccess()) {
-                Log.d(TAG, "onResult: Place query did not complete successfully." + places
-                        .getStatus().toString());
-                return;
-            }
+    private final ResultCallback<PlaceBuffer> updatePlaceDetails = new
+            ResultCallback<PlaceBuffer>() {
+                @Override
+                public void onResult(@NonNull PlaceBuffer places) {
+                    if (!places.getStatus().isSuccess()) {
+                        Log.d(TAG, "onResult: Place query did not complete successfully." + places
+                                .getStatus().toString());
+                        return;
+                    }
 
-            final Place place = places.get(0);
+                    final Place place = places.get(0);
 
-            String placeId = place.getId();
-            String name = (String) place.getName();
-            String address = (String) place.getAddress();
-            String phoneNumber = (String) place.getPhoneNumber();
-            String websiteUri = String.valueOf(place.getWebsiteUri());
-            float rating = place.getRating();
-            String attributions = (String) place.getAttributions();
-            LatLng latLng = place.getLatLng();
+                    String placeId = place.getId();
+                    String name = (String) place.getName();
+                    String address = (String) place.getAddress();
+                    String phoneNumber = (String) place.getPhoneNumber();
+                    String websiteUri = String.valueOf(place.getWebsiteUri());
+                    float rating = place.getRating();
+                    String attributions = (String) place.getAttributions();
+                    LatLng latLng = place.getLatLng();
 
-            try {
-                mPlaceModel = new PlaceModel();
-                mPlaceModel.setPlaceId(placeId);
-                mPlaceModel.setName(name);
-                mPlaceModel.setAddress(address);
-                mPlaceModel.setPhoneNumber(phoneNumber);
-                mPlaceModel.setWebsiteUri(websiteUri);
-                mPlaceModel.setRating(rating);
-                mPlaceModel.setLat(attributions);
-            } catch (
-                    NullPointerException e) {
-                Log.e(TAG, "onResult: NullpointerException" + e.getMessage());
-            }
+                    try {
+                        mPlaceModel = new PlaceModel();
+                        mPlaceModel.setPlaceId(placeId);
+                        mPlaceModel.setName(name);
+                        mPlaceModel.setAddress(address);
+                        mPlaceModel.setPhoneNumber(phoneNumber);
+                        mPlaceModel.setWebsiteUri(websiteUri);
+                        mPlaceModel.setRating(rating);
+                        mPlaceModel.setLat(attributions);
+                    } catch (
+                            NullPointerException e) {
+                        Log.e(TAG, "onResult: NullpointerException" + e.getMessage());
+                    }
 
-            moveCamera(latLng, mPlaceModel);
-            places.release();
-        }
-    };
+                    moveCamera(latLng, mPlaceModel);
+                    places.release();
+                }
+            };
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -563,21 +559,6 @@ public class MapActivity extends AppCompatActivity implements
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-//    public void addGeofenceButtonHandler(View view) {
-//        if (!googleApiClient.isConnected()) {
-//            Toast.makeText(this, getString(R.string.not_connected), Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        try {
-//            LocationServices.GeofencingApi.addGeofences(
-//                    googleApiClient,
-//                    getGeofencingRequest(),
-//                    getGeofencePendingIntent())
-//                    .setResultCallback(this);
-//        } catch (SecurityException e) {
-//        }
-//    }
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -599,8 +580,6 @@ public class MapActivity extends AppCompatActivity implements
                     .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                             Geofence.GEOFENCE_TRANSITION_EXIT)
                     .build());
-            Log.e(TAG, "populateGeofenceList: ");
-
         }
     }
 

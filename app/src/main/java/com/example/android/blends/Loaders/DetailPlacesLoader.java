@@ -15,7 +15,7 @@ public class DetailPlacesLoader extends AsyncTaskLoader<Object> {
 
     private static final String TAG = DetailPlacesLoader.class.getSimpleName();
     private final String id;
-    private final int loaderId;
+    public final int loaderId;
 
     public DetailPlacesLoader(@NonNull Context context, String id, int loaderId) {
         super(context);

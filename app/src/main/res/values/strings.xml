@@ -1,24 +1,9 @@
 <resources>
 
     <string name="app_name">Blends</string>
-    <string name="fragment_favorites">My Spots</string>
-    <string name="fragment_want_to_see">Want to see</string>
-    <string name="message_list_empty">Cafe list is empty</string>
-    <string name="cafe_name">Name</string>
-    <string name="cafe_address">Address</string>
     <string name="cafe_rating">Overall rating </string>
-    <string name="cafe_contact_number">Contact number</string>
-    <string name="cafe_opening_hours">Open</string>
     <string name="cafe_short_description">Short description of the place </string>
-    <string name="search_text_view">Search place</string>
-    <string name="access_request_message">Allow Blends to access the location of this device?</string>
-    <string name="access_request_allow">Allow</string>
-    <string name="access_request_deny">Deny</string>
-    <string name="settings_enable_geofences">Enable Geofences</string>
-    <string name="settings_location_permission">Location Permissions</string>
-    <string name="settings_place_notification">Place notification</string>
     <string name="menu_view_map">View map</string>
-    <string name="menu_settings">Settings</string>
     <string name="menu_share">Share with friends</string>
     <string name="sample_lorem_ipsum_text">Lorem ipsum dolor sit amet, has ad hinc
 nonumy, ius ex adhuc nihil sensibus. Tale
@@ -37,20 +22,31 @@ fabellas no. </string>
     <string name="geofence_transition_notif_text">You are near a coffee shop</string>
     <string name="geofence_too_many_geofences">Too many geofences</string>
     <string name="geofence_too_many_pending_intents">Too many pending intents</string>
-    <string name="not_connected">Google API client not connected</string>
-    <string name="enable_geofences">Notify me</string>
-    <string name="setting_enabled">Enabled Setting</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="widget_title">Cafe of the day</string>
     <string name="sample_widget_name">Katie\'s Coffee</string>
     <string name="sample_widget_address">6 Rembrandt Close</string>
     <string name="sample_widget_number">0776 494 7699</string>
     <string name="sample_logo_descrp">Cafe Image</string>
-    <string name="todo">TODO</string>
     <string name="fav_button_description">Favorite Button</string>
     <string name="separator_line">separator line</string>
     <string name="logo_splash_image">logo image</string>
+    <string name="map_activity_search_icon">search icon</string>
+    <string name="map_activity_current_location_icon">my current location</string>
+    <string name="map_activity_info_place_icon">info place</string>
+    <string name="map_activity_navigation_icon">navigation</string>
+    <string name="KEY_STATE_BUTTON_SELECTED">button selected</string>
+    <string name="KEY_STATE_ADDRESS">cafeAddress</string>
+    <string name="KEY_STATE_PHONE">cafePhone</string>
+    <string name="KEY_STATE_RATING">cafeRating</string>
+    <string name="KEY_STATE_REVIEW_AUTHOR">cafeReviewAuthor</string>
+    <string name="KEY_STATE_REVIEW_CONTENT">cafeReviewText</string>
+    <string name="twitter_package_name">com.twitter.android</string>
+    <string name="twitter_package_comp">com.twitter.android.composer.ComposerActivity</string>
+    <string name="text_plain">text/plain</string>
+    <string name="share_text">Share with your friends</string>
+    <string name="error_twitter_not_installed">Twitter is not installed on this device</string>
+    <string name="widget_static_title">Coffee of the day</string>
+    <string name="error_not_connected">Not connected</string>
     <!--<string name="todo">TODO2</string>-->
     <!--<string name="todo2">TODO3</string>-->
 </resources>

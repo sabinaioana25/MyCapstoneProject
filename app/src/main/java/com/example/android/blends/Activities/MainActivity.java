@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements
     private Parcelable mListState;
     private static final String LIST_STATE_KEY = "savedState";
 
-    private RecyclerView placesListRecyclerView;
     private PlacesAdapter placesListAdapter;
     private final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
 
@@ -64,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_main);
-
         Stetho.initializeWithDefaults(this);
 
         Toolbar toolbar = findViewById(R.id.main_activity_id_toolbar);
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements
         NestedScrollView scrollView = findViewById(R.id.main_activity_nested_scroll);
         scrollView.setFillViewport(true);
 
-        placesListRecyclerView = findViewById(R.id.main_list_recycler_view);
+        RecyclerView placesListRecyclerView = findViewById(R.id.main_list_recycler_view);
         placesListRecyclerView.setLayoutManager(gridLayoutManager);
         placesListRecyclerView.setHasFixedSize(true);
         placesListAdapter = new PlacesAdapter(this, this);
@@ -137,23 +136,23 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(@NonNull Loader loader, Object data) {
-        placesListAdapter.inserList(null);
+        placesListAdapter.insertList(null);
         if (data instanceof Cursor) {
             Cursor cursor = (Cursor) data;
-            placesListAdapter.inserList(cursor);
+            placesListAdapter.insertList(cursor);
         } else {
             List<PlaceModel> list = (List<PlaceModel>) data;
-            placesListAdapter.inserList(list);
+            placesListAdapter.insertList(list);
         }
         switch (loader.getId()) {
             case ID_CURSOR_PLACE_LOADER:
                 placesListAdapter.deleteItemsInList();
-                placesListAdapter.inserList(data);
+                placesListAdapter.insertList(data);
                 break;
             case ID_PLACE_LOADER:
                 List<PlaceModel> listPlaces = (List<PlaceModel>) data;
                 if (isConnected()) {
-                    placesListAdapter.inserList(listPlaces);
+                    placesListAdapter.insertList(listPlaces);
                 } else {
                     return;
                 }
@@ -164,18 +163,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLoaderReset(@NonNull Loader loader) {
-        placesListAdapter.inserList(null);
+        placesListAdapter.insertList(null);
         switch (loader.getId()) {
             case ID_CURSOR_PLACE_LOADER:
-                placesListAdapter.inserList(null);
+                placesListAdapter.insertList(null);
             case ID_PLACE_LOADER:
-                placesListAdapter.inserList(null);
+                placesListAdapter.insertList(null);
                 break;
         }
-    }
-
-    @Override
-    public void onPostResume(Loader loader) {
     }
 
     @Override

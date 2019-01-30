@@ -16,21 +16,21 @@
     <RelativeLayout
         android:id="@+id/relative_layout_search_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="@dimen/box_large"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
         android:background="@drawable/white_border"
-        android:elevation="10dp"
+        android:elevation="@dimen/margin_large"
         tools:ignore="UnusedAttribute">
 
         <ImageView
             android:id="@+id/ic_magnify"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/margin_xx_large"
+            android:layout_height="@dimen/margin_xx_large"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:contentDescription="TODO"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:contentDescription="@string/map_activity_search_icon"
             android:src="@drawable/ic_search"
             tools:ignore="RtlHardcoded" />
 
@@ -39,54 +39,58 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/margin_medium"
             android:layout_toRightOf="@id/ic_magnify"
             android:background="@null"
             android:hint="@string/edit_text_search"
             android:imeOptions="actionSearch"
             android:singleLine="true"
-            android:textColor="#000"
-            android:textSize="16sp"
+            android:textColor="@color/colorTextDark"
+            android:textSize="@dimen/text_medium"
             tools:ignore="RtlHardcoded" />
-
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/ic_gps"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/box_medium"
+        android:layout_height="@dimen/box_medium"
         android:layout_below="@id/relative_layout_search_bar"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:contentDescription="@string/map_activity_current_location_icon"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_gps" />
 
     <ImageView
         android:id="@+id/ic_place_info"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/margin_xxx_large"
+        android:layout_height="@dimen/margin_xxx_large"
         android:layout_below="@id/ic_gps"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:contentDescription="@string/map_activity_info_place_icon"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_place_info" />
 
     <ImageView
         android:id="@+id/ic_place_picker"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/margin_xxx_large"
+        android:layout_height="@dimen/margin_xxx_large"
         android:layout_below="@id/ic_place_info"
         android:layout_alignEnd="@id/ic_place_info"
         android:layout_alignRight="@id/ic_place_info"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_x_small"
+        android:layout_marginRight="@dimen/margin_x_small"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_place_picker" />
+        android:contentDescription="@string/map_activity_navigation_icon"
+        android:src="@drawable/ic_place_picker"
+        android:layout_marginStart="@dimen/margin_large" />
 </RelativeLayout>

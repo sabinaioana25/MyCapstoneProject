@@ -32,7 +32,7 @@ public class PlacesAdapter extends
     private String cafeAddress;
     private String priceLevel;
     private String cafeOpenNow;
-    private static String cafeImage;
+    public static String cafeImage;
 
     public PlacesAdapter(PlacesDetailClickHandler onClickHandler, Context context) {
         this.onClickHandler = onClickHandler;
@@ -78,7 +78,7 @@ public class PlacesAdapter extends
         return 0;
     }
 
-    public void inserList(Object data) {
+    public void insertList(Object data) {
         placeList.clear();
         if (data != null) {
             if (data instanceof Cursor) {
@@ -101,7 +101,6 @@ public class PlacesAdapter extends
     }
 
     public interface PlacesDetailClickHandler {
-        void onPostResume(Loader loader);
 
         void onItemClick(String id);
     }
@@ -123,6 +122,7 @@ public class PlacesAdapter extends
             vhCafePriceLevel = view.findViewById(R.id.text_view_phone_number);
             vhCafeImage = view.findViewById(R.id.cafe_logo);
             view.setOnClickListener(this);
+
         }
 
         @Override

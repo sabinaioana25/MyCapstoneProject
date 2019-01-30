@@ -13,11 +13,11 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +51,7 @@ public class DetailActivity extends
     private String placeOverallRating;
     private List<ReviewModel> reviewsEntryList = null;
     private String placePriceLevel;
-    private int wantToSeeInd = 0;
+    public int wantToSeeInd = 0;
     private String lat;
     private String lng;
     private String reviewAuthor;
@@ -81,11 +81,11 @@ public class DetailActivity extends
             ReviewsEntry.COLUMN_REVIEW_TEXT,
             ReviewsEntry.COLUMN_REVIEW_RATING
     };
-    Switch enableGeofence;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_detail);
 
         Toolbar toolbar = findViewById(R.id.detail_activity_toolbar);
@@ -124,23 +124,24 @@ public class DetailActivity extends
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("button selected", buttonIsSelected);
-        outState.putString("cafeAddress", placeFormattedAddress);
-        outState.putString("cafePhone", placePhoneNumber);
-        outState.putString("cafeRating", placeOverallRating);
-        outState.putString("cafeReviewAuthor", reviewAuthor);
-        outState.putString("cafeReviewText", reviewContent);
+        outState.putBoolean(getString(R.string.KEY_STATE_BUTTON_SELECTED), buttonIsSelected);
+        outState.putString(getString(R.string.KEY_STATE_ADDRESS), placeFormattedAddress);
+        outState.putString(getString(R.string.KEY_STATE_PHONE), placePhoneNumber);
+        outState.putString(getString(R.string.KEY_STATE_RATING), placeOverallRating);
+        outState.putString(getString(R.string.KEY_STATE_REVIEW_AUTHOR), reviewAuthor);
+        outState.putString(getString(R.string.KEY_STATE_REVIEW_CONTENT), reviewContent);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        buttonIsSelected = savedInstanceState.getBoolean("button selected");
-        placeFormattedAddress = savedInstanceState.getString("cafeAddress");
-        placePhoneNumber = savedInstanceState.getString("cafePhone");
-        placeOverallRating = savedInstanceState.getString("cafeRating");
-        reviewAuthor = savedInstanceState.getString("cafeReviewAuthor");
-        reviewContent = savedInstanceState.getString("cafeReviewText");
+        buttonIsSelected = savedInstanceState.getBoolean(getString(R.string
+                .KEY_STATE_BUTTON_SELECTED));
+        placeFormattedAddress = savedInstanceState.getString(getString(R.string.KEY_STATE_ADDRESS));
+        placePhoneNumber = savedInstanceState.getString(getString(R.string.KEY_STATE_PHONE));
+        placeOverallRating = savedInstanceState.getString(getString(R.string.KEY_STATE_RATING));
+        reviewAuthor = savedInstanceState.getString(getString(R.string.KEY_STATE_REVIEW_AUTHOR));
+        reviewContent = savedInstanceState.getString(getString(R.string.KEY_STATE_REVIEW_CONTENT));
     }
 
     @Override
@@ -312,7 +313,8 @@ public class DetailActivity extends
         TextView reviewAuthorTextView = findViewById(R.id.detail_activity_review_author);
         TextView reviewContentTextView = findViewById(R.id.detail_activity_review_text);
 
-        reviewAuthorTextView.setText(reviewAuthor + ":");
+        reviewAuthorTextView.setText(new StringBuilder().append(reviewAuthor).append(":")
+                .toString());
         reviewContentTextView.setText(reviewContent);
     }
 
@@ -390,24 +392,26 @@ public class DetailActivity extends
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_view_map) {
+        if (id == R.id.detail_show_on_map) {
             Intent showPlaceOnMap = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + lat + ">," +
-                    "<" + lng + ">?q=<" + lat + ">,<" + lng + ">(" + placeId + ")"));
+                    "<" + lng + ">?q=<" + lat + ">,<" + lng + ">(" + placeName + ")"));
+            Log.e(TAG, "onOptionsItemSelected: " + Uri.parse("geo:<" + lat + ">," +
+                    "<" + lng + ">?q=<" + lat + ">,<" + lng + ">(" + placeName + ")"));
             startActivity(showPlaceOnMap);
         } else if (id == R.id.action_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
-
             try {
                 // Check if the Twitter app is installed on the phone.
-                this.getPackageManager().getPackageInfo("com.twitter.android", 0);
-                intent.setClassName("com.twitter.android", "com.twitter.android.composer" +
-                        ".ComposerActivity");
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Your text");
+                this.getPackageManager().getPackageInfo(getString(R.string.twitter_package_name),
+                        0);
+                intent.setClassName(getString(R.string.twitter_package_name), getString(R.string
+                        .twitter_package_comp));
+                intent.setType(getString(R.string.text_plain));
+                intent.putExtra(Intent.EXTRA_TEXT, R.string.share_text);
                 startActivity(intent);
 
             } catch (Exception e) {
-                Toast.makeText(this, "Twitter is not installed on this device", Toast
+                Toast.makeText(this, getString(R.string.error_twitter_not_installed), Toast
                         .LENGTH_LONG).show();
             }
         }

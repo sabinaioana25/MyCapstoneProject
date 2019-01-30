@@ -20,11 +20,6 @@ public class NetworkUtils {
     private static final String PLACES_API_KEY = "AIzaSyAjdGsFkv2-PUTi2I2TsiP7PIZ_bn7vrDA";
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    // main API
-    public static final String URL_MAIN = "https://maps.googleapis" +
-            ".com/maps/api/place/nearbysearch/json?location=51.520599," +
-            "-0.120670&radius=2000&types=cafe&keyword=coffee,hipster,fresh&key" + PLACES_API_KEY;
-
     // detail API
     private static final String URL_SCHEME = "https";
     private static final String URL_AUTHORITY = "maps.googleapis.com/maps/api/place";
@@ -58,15 +53,6 @@ public class NetworkUtils {
     Context context;
 
     private NetworkUtils() { }
-//
-//    public static URL createUrl(String stringUrl) {
-//        URL url = null;
-//        try {
-//            url = new URL(stringUrl);
-//        } catch (MalformedURLException ignored) {
-//        }
-//        return url;
-//    }
 
     public static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = null;
@@ -87,6 +73,7 @@ public class NetworkUtils {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
+                Log.w(TAG, "makeHttpRequestError");
             }
         } catch (IOException ignored) {
         } finally {
@@ -96,8 +83,8 @@ public class NetworkUtils {
             if (inputStream != null) {
                 inputStream.close();
             }
-            return jsonResponse;
         }
+        return jsonResponse;
     }
 
     private static String readFromStream(InputStream inputStream) throws IOException {
@@ -139,7 +126,8 @@ public class NetworkUtils {
                 .appendQueryParameter(URL_API_KEY, PLACES_API_KEY)
                 .build();
         try {
-            Log.e(TAG, "buildPlaceListUrl: " +  URLDecoder.decode(builder.build().toString(), "UTF-8"));
+            Log.w(TAG, "buildPlaceListUrl: " + URLDecoder.decode(builder.build().toString(),
+                    "UTF-8"));
 
             return new URL(URLDecoder.decode(builder.build().toString(), "UTF-8"));
         } catch (MalformedURLException e) {
@@ -161,7 +149,8 @@ public class NetworkUtils {
                 .appendQueryParameter(URL_API_KEY, PLACES_API_KEY)
                 .build();
         try {
-            Log.e(TAG, "buildPlaceListUrl: "+URLDecoder.decode(uriBuilderDetailPlace.build().toString(), "UTF-8"));
+            Log.w(TAG, "buildPlaceListUrl: " + URLDecoder.decode(uriBuilderDetailPlace.build()
+                    .toString(), "UTF-8"));
             return new URL(URLDecoder.decode(uriBuilderDetailPlace.build().toString(), "UTF-8"));
         } catch (MalformedURLException e) {
             e.printStackTrace();

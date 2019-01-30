@@ -35,9 +35,11 @@ import java.util.concurrent.TimeoutException;
  * adapter. (See {@link AutocompletePrediction#freeze()}.)
  */
 
-// URL link to source https://github.com/googlesamples/android-play-places/tree/master/PlaceCompleteAdapter
+// URL link to source https://github
+// .com/googlesamples/android-play-places/tree/master/PlaceCompleteAdapter
 
-public class PlaceAutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> implements Filterable {
+public class PlaceAutoCompleteAdapter extends ArrayAdapter<AutocompletePrediction> implements
+        Filterable {
 
     private static final String TAG = "PlaceAutoComplete";
     private static final CharacterStyle STYLE_BOLD = new StyleSpan(Typeface.BOLD);
@@ -109,8 +111,8 @@ public class PlaceAutoCompleteAdapter extends ArrayAdapter<AutocompletePredictio
 
         AutocompletePrediction item = getItem(position);
 
-        TextView textView1 = (TextView) row.findViewById(android.R.id.text1);
-        TextView textView2 = (TextView) row.findViewById(android.R.id.text2);
+        TextView textView1 = row.findViewById(android.R.id.text1);
+        TextView textView2 = row.findViewById(android.R.id.text2);
         textView1.setText(item.getPrimaryText(STYLE_BOLD));
         textView2.setText(item.getSecondaryText(STYLE_BOLD));
 
@@ -173,20 +175,6 @@ public class PlaceAutoCompleteAdapter extends ArrayAdapter<AutocompletePredictio
         };
     }
 
-    /**
-     * Submits an autocomplete query to the Places Geo Data Autocomplete API.
-     * Results are returned as frozen AutocompletePrediction objects, ready to be cached.
-     * Returns an empty list if no results were found.
-     * Returns null if the API client is not available or the query did not complete
-     * successfully.
-     * This method MUST be called off the main UI thread, as it will block until data is returned
-     * from the API, which may include a network request.
-     *
-     * @param constraint Autocomplete query string
-     * @return Results from the autocomplete API or null if the query was not successful.
-     * @see GeoDataClient#getAutocompletePredictions(String, LatLngBounds, AutocompleteFilter)
-     * @see AutocompletePrediction#freeze()
-     */
     private ArrayList<AutocompletePrediction> getAutocomplete(CharSequence constraint) {
         Log.i(TAG, "Starting autocomplete query for: " + constraint);
 

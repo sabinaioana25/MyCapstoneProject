@@ -5,6 +5,5 @@
     <color name="colorAccent">#000</color>
     <color name="colorTextDark">#000</color>
     <color name="colorText">#fff</color>
-    <color name="colorSecond">#A1A49F</color>
     <color name="colorMainBackground">#51574E</color>
 </resources>
