@@ -36,14 +36,14 @@ public class DetailActivity extends
         AppCompatActivity implements LoaderManager.LoaderCallbacks {
 
     private static final String TAG = DetailActivity.class.getSimpleName();
-    public static final int ID_LOADER_DETAIL_PLACES = 1;
-    public static final int ID_CURSOR_DETAIL_PLACES = 2;
-    public static final int ID_REVIEW_LOADER = 3;
-    public static final int ID_CURSOR_REVIEW_LOADER = 4;
+    private static final int ID_LOADER_DETAIL_PLACES = 1;
+    private static final int ID_CURSOR_DETAIL_PLACES = 2;
+    private static final int ID_REVIEW_LOADER = 3;
+    private static final int ID_CURSOR_REVIEW_LOADER = 4;
 
     // place detail components
     private String placeId;
-    public String placeName;
+    private String placeName;
     private String placeFormattedAddress;
     private String placePhoneNumber;
     private String placeWebsite;
@@ -56,8 +56,8 @@ public class DetailActivity extends
     private String lng;
     private String reviewAuthor;
     private String reviewContent;
-    public PlaceModel mObject = new PlaceModel();
-    ImageView buttonFav;
+    private PlaceModel mObject = new PlaceModel();
+    private ImageView buttonFav;
     private boolean buttonIsSelected = false;
 
     private final String[] detailPlaceProjection = new String[]{
@@ -213,7 +213,7 @@ public class DetailActivity extends
     public void onLoaderReset(Loader loader) {
     }
 
-    public void populatePlaceValues(Context context, final Object object, int type) {
+    private void populatePlaceValues(Context context, final Object object, int type) {
         switch (type) {
             case ID_CURSOR_DETAIL_PLACES:
                 Cursor placeCursor = (Cursor) object;
@@ -316,7 +316,7 @@ public class DetailActivity extends
         reviewContentTextView.setText(reviewContent);
     }
 
-    public void addToDatabaseTable(int loaderType, Object object) {
+    private void addToDatabaseTable(int loaderType, Object object) {
         ContentValues contentValues = new ContentValues();
         mObject = (PlaceModel) object;
 

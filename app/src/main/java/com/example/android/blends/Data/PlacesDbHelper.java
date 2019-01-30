@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static com.example.android.blends.Data.PlacesContract.PlacesEntry;
 import static com.example.android.blends.Data.PlacesContract.ReviewsEntry;
 
-public class PlacesDbHelper extends SQLiteOpenHelper {
+class PlacesDbHelper extends SQLiteOpenHelper {
 
     // name
     private static final String DATABASE_NAME = "cafes.db";

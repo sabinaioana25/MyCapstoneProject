@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
 
 public class NetworkUtils {
 
-    public static final String PLACES_API_KEY = "AIzaSyAjdGsFkv2-PUTi2I2TsiP7PIZ_bn7vrDA";
+    private static final String PLACES_API_KEY = "AIzaSyAjdGsFkv2-PUTi2I2TsiP7PIZ_bn7vrDA";
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     // main API
@@ -26,38 +26,38 @@ public class NetworkUtils {
             "-0.120670&radius=2000&types=cafe&keyword=coffee,hipster,fresh&key" + PLACES_API_KEY;
 
     // detail API
-    public static final String URL_SCHEME = "https";
-    public static final String URL_AUTHORITY = "maps.googleapis.com/maps/api/place";
-    public static final String URL_PATH_NEARBY = "nearbysearch";
-    public static final String URL_LOCATION_KEY = "location";
-    public static final String URL_LOCATION_VALUE = "51.520599,-0.120670";
-    public static final String URL_RADIUS_KEY = "radius";
-    public static final String URL_RADIUS_VALUE = "2000";
-    public static final String URL_PATH_DETAILS = "details";
-    public static final String URL_TYPES_KEY = "types";
-    public static final String URL_TYPES_VALUE = "cafe";
-    public static final String URL_KEYWORD_KEY = "keyword";
-    public static final String URL_KEYWORD_VALUE = "coffee,hipster,fresh";
-    public static final String URL_PATH_FORMAT = "json";
-    public static final String URL_PATH_PLACE_ID_KEY = "placeid";
-    public static final String URL_PATH_FIELDS_KEY = "fields";
-    public static final String URL_PATH_FIELDS_VALUE = "name,website,geometry,vicinity," +
+    private static final String URL_SCHEME = "https";
+    private static final String URL_AUTHORITY = "maps.googleapis.com/maps/api/place";
+    private static final String URL_PATH_NEARBY = "nearbysearch";
+    private static final String URL_LOCATION_KEY = "location";
+    private static final String URL_LOCATION_VALUE = "51.520599,-0.120670";
+    private static final String URL_RADIUS_KEY = "radius";
+    private static final String URL_RADIUS_VALUE = "2000";
+    private static final String URL_PATH_DETAILS = "details";
+    private static final String URL_TYPES_KEY = "types";
+    private static final String URL_TYPES_VALUE = "cafe";
+    private static final String URL_KEYWORD_KEY = "keyword";
+    private static final String URL_KEYWORD_VALUE = "coffee,hipster,fresh";
+    private static final String URL_PATH_FORMAT = "json";
+    private static final String URL_PATH_PLACE_ID_KEY = "placeid";
+    private static final String URL_PATH_FIELDS_KEY = "fields";
+    private static final String URL_PATH_FIELDS_VALUE = "name,website,geometry,vicinity," +
             "price_level,formatted_address,photo,rating,reviews,international_phone_number," +
             "opening_hours";
-    public static final String URL_API_KEY = "key";
+    private static final String URL_API_KEY = "key";
 
     // image API
-    public static final String URL_PATH_PHOTO = "photo";
-    public static final String URL_IMAGE_WIDTH_KEY
+    private static final String URL_PATH_PHOTO = "photo";
+    private static final String URL_IMAGE_WIDTH_KEY
             = "maxwidth";
-    public static final String URL_IMAGE_WIDTH_VALUE = "400";
-    public static final String URL_PATH_PHOTO_REFERENCE_KEY = "photoreference";
+    private static final String URL_IMAGE_WIDTH_VALUE = "400";
+    private static final String URL_PATH_PHOTO_REFERENCE_KEY = "photoreference";
 
     private static final int READ_TIME_OUT = 1000;
     private static final int CONN_TIME_OUT = 1001;
     Context context;
 
-    public NetworkUtils() { }
+    private NetworkUtils() { }
 //
 //    public static URL createUrl(String stringUrl) {
 //        URL url = null;

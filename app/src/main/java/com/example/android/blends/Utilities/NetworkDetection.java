@@ -5,8 +5,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkDetection {
-    Context context;
+class NetworkDetection {
+    private final Context context;
 
     public NetworkDetection(Context context) {
         this.context = context;

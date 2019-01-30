@@ -40,7 +40,7 @@ public class JSONUtils {
 
     private static final String TAG = JSONUtils.class.getSimpleName();
 
-    public JSONUtils() {
+    private JSONUtils() {
         // mandatory empty constructor
     }
 

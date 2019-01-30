@@ -15,9 +15,10 @@ import com.example.android.blends.R;
  */
 public class CafeAppWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId, String widgetCafeName, String widgetCafeAddress,
-                                String widgetCafeNumber) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId, String widgetCafeName, String
+                                                widgetCafeAddress,
+                                        String widgetCafeNumber) {
 
         CharSequence widgetText = context.getString(R.string.widget_title);
         // Construct the RemoteViews object

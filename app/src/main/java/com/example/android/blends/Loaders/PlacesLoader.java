@@ -16,7 +16,7 @@ import java.util.List;
 public class PlacesLoader extends AsyncTaskLoader<Object> {
 
     private static final String TAG = PlacesLoader.class.getSimpleName();
-    public String url;
+    private final String url;
 
     public PlacesLoader(@NonNull Context context, String url) {
         super(context);

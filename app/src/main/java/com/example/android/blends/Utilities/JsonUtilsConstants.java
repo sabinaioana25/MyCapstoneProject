@@ -1,6 +1,6 @@
 package com.example.android.blends.Utilities;
 
-public class JsonUtilsConstants {
+class JsonUtilsConstants {
     // generally used constants
     public static final String NAME = "name";
     public static final String RESULTS = "results";

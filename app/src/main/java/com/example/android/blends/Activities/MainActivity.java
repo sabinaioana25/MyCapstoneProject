@@ -36,15 +36,15 @@ public class MainActivity extends AppCompatActivity implements
         PlacesAdapter.PlacesDetailClickHandler {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public static final int ID_PLACE_LOADER = 1000;
-    public static final int ID_CURSOR_PLACE_LOADER = 1001;
+    private static final int ID_PLACE_LOADER = 1000;
+    private static final int ID_CURSOR_PLACE_LOADER = 1001;
     private static final String PLACE_ID = "place id";
-    Parcelable mListState;
+    private Parcelable mListState;
     private static final String LIST_STATE_KEY = "savedState";
 
-    public RecyclerView placesListRecyclerView;
-    public PlacesAdapter placesListAdapter;
-    private GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
+    private RecyclerView placesListRecyclerView;
+    private PlacesAdapter placesListAdapter;
+    private final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
 
     private final String[] listProjection = new String[]{
             PlacesContract.PlacesEntry.COLUMN_PLACE_ID,

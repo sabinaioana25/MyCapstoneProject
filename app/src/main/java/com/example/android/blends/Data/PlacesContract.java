@@ -6,13 +6,13 @@ import android.provider.BaseColumns;
 
 public class PlacesContract {
 
-    public static final String PLACES_CONTENT_SCHEME = "content://";
+    private static final String PLACES_CONTENT_SCHEME = "content://";
     public static final String PLACES_CONTENT_AUTHORITY = "com.example.android.blends";
     public static final String PLACES_PATH = "cafe";
     public static final String PLACES_CONTENT_LIST_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + PLACES_CONTENT_AUTHORITY + "/" + PLACES_PATH;
     public static final String PLACES_CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + PLACES_CONTENT_AUTHORITY + "/" + PLACES_PATH;
     public static final String PLACES_PATH_REVIEWS = "reviews";
-    public static final Uri PLACES_BASE_CONTENT_URI = Uri.parse(PLACES_CONTENT_SCHEME +
+    private static final Uri PLACES_BASE_CONTENT_URI = Uri.parse(PLACES_CONTENT_SCHEME +
             PLACES_CONTENT_AUTHORITY);
 
 

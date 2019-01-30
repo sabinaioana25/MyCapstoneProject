@@ -91,9 +91,9 @@ public class MapActivity extends AppCompatActivity implements
     );
     private static final int GEOFENCE_RADIUS = 500;
     private static final int GEOFENCE_EXPIRATION = 6000;
-    public static final HashMap<String, LatLng> TAP_COFFEE =
+    private static final HashMap<String, LatLng> TAP_COFFEE =
             new HashMap<>();
-    public static final HashMap<String, LatLng> MY_LOCATION =
+    private static final HashMap<String, LatLng> MY_LOCATION =
             new HashMap<>();
 
 
@@ -105,15 +105,15 @@ public class MapActivity extends AppCompatActivity implements
     private Boolean mLocationPermissionGranted = false;
     private GoogleMap mGoogleMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    public PlaceAutoCompleteAdapter placeAutoCompleteAdapter;
+    private PlaceAutoCompleteAdapter placeAutoCompleteAdapter;
     private GoogleApiClient googleApiClient;
     private PlaceModel mPlaceModel = new PlaceModel();
     private Marker marker;
-    public static ArrayList<LatLng> locations;
-    protected ArrayList<Geofence> mGeofenceList;
+    private static ArrayList<LatLng> locations;
+    private ArrayList<Geofence> mGeofenceList;
     private Context context;
     private PendingIntent pendingIntent;
-    String details;
+    private String details;
 
 
     private GeofencingClient geofencingClient;
@@ -237,7 +237,7 @@ public class MapActivity extends AppCompatActivity implements
         }
     }
 
-    private void moveCamera(LatLng latLng, float zoom, PlaceModel placeModel) {
+    private void moveCamera(LatLng latLng, PlaceModel placeModel) {
         mGoogleMap.clear();
         mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
 
@@ -487,7 +487,7 @@ public class MapActivity extends AppCompatActivity implements
         Log.e(TAG, "onConnectionFailed: API client connection failed! " + result);
     }
 
-    private AdapterView.OnItemClickListener mAutoCompleteClickListener =
+    private final AdapterView.OnItemClickListener mAutoCompleteClickListener =
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -501,7 +501,7 @@ public class MapActivity extends AppCompatActivity implements
                 }
             };
 
-    private ResultCallback<PlaceBuffer> updatePlaceDetails = new ResultCallback<PlaceBuffer>() {
+    private final ResultCallback<PlaceBuffer> updatePlaceDetails = new ResultCallback<PlaceBuffer>() {
         @Override
         public void onResult(@NonNull PlaceBuffer places) {
             if (!places.getStatus().isSuccess()) {
@@ -535,7 +535,7 @@ public class MapActivity extends AppCompatActivity implements
                 Log.e(TAG, "onResult: NullpointerException" + e.getMessage());
             }
 
-            moveCamera(latLng, DEFAULT_ZOOM, mPlaceModel);
+            moveCamera(latLng, mPlaceModel);
             places.release();
         }
     };
@@ -586,7 +586,7 @@ public class MapActivity extends AppCompatActivity implements
         }
     }
 
-    public void populateGeofenceList() {
+    private void populateGeofenceList() {
 
         for (Map.Entry<String, LatLng> entry : MY_LOCATION.entrySet()) {
             mGeofenceList.add(new Geofence.Builder()
@@ -611,7 +611,7 @@ public class MapActivity extends AppCompatActivity implements
         return builder.build();
     }
 
-    public void sendNotification(String notificationDetails) {
+    private void sendNotification(String notificationDetails) {
 
         details = notificationDetails;
         Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);

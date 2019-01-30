@@ -24,15 +24,15 @@ public class PlacesAdapter extends
 
     private static final String TAG = PlacesAdapter.class.getSimpleName();
     private final PlacesDetailClickHandler onClickHandler;
-    public Context context;
+    private final Context context;
     private final List<PlaceModel> placeList = new ArrayList<>();
     private Cursor cursor;
     private boolean mCursor = false;
-    public static String cafeName;
-    public String cafeAddress;
-    public String priceLevel;
-    public String cafeOpenNow;
-    public static String cafeImage;
+    private static String cafeName;
+    private String cafeAddress;
+    private String priceLevel;
+    private String cafeOpenNow;
+    private static String cafeImage;
 
     public PlacesAdapter(PlacesDetailClickHandler onClickHandler, Context context) {
         this.onClickHandler = onClickHandler;
@@ -115,7 +115,7 @@ public class PlacesAdapter extends
         private final TextView vhCafePriceLevel;
         private final ImageView vhCafeImage;
 
-        public PlacesMovieHolder(View view) {
+        PlacesMovieHolder(View view) {
             super(view);
             vhCafeName = view.findViewById(R.id.text_view_name);
             vhCafeOpenNow = view.findViewById(R.id.text_view_days);
