@@ -41,6 +41,7 @@
                 android:layout_marginBottom="@dimen/box_medium_small"
                 android:background="@drawable/selector_button"
                 android:clickable="true"
+                android:contentDescription="@string/fav_button_description"
                 android:focusable="true" />
 
             <android.support.v7.widget.Toolbar
@@ -76,6 +77,7 @@
                 android:layout_marginEnd="@dimen/margin_xx_large"
 
                 android:layout_marginRight="@dimen/margin_xx_large"
+                android:drawableStart="@drawable/ic_place_pin"
                 android:drawableLeft="@drawable/ic_place_pin"
                 android:drawablePadding="@dimen/margin_medium"
                 android:text="@string/sample_widget_address" />
@@ -89,6 +91,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_xx_large"
                 android:layout_marginRight="@dimen/margin_xx_large"
+                android:contentDescription="@string/separator_line"
                 android:src="@drawable/shape_horiz_line" />
 
             <LinearLayout
@@ -129,13 +132,11 @@
                         android:orientation="vertical">
 
                         <TextView
-
                             android:id="@+id/textViewOverallRating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_marginLeft="@dimen/margin_medium"
-
                             android:text="@string/cafe_rating"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -143,14 +144,12 @@
                             android:id="@+id/textViewOverallRatingValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_marginLeft="@dimen/margin_medium"
                             android:drawableStart="@drawable/ic_star_half_24px"
                             android:drawableLeft="@drawable/ic_star_half_24px"
                             android:drawablePadding="@dimen/margin_medium"
                             tools:text="4.5" />
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -167,7 +166,6 @@
                     android:drawablePadding="@dimen/margin_medium"
                     tools:text="Open" />
 
-
             </LinearLayout>
 
             <ImageView
@@ -180,6 +178,7 @@
                 android:layout_marginEnd="@dimen/margin_xx_large"
                 android:layout_marginRight="@dimen/margin_xx_large"
                 android:layout_marginBottom="@dimen/margin_medium"
+                android:contentDescription="@string/separator_line"
                 android:src="@drawable/shape_horiz_line"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -48,6 +48,9 @@ fabellas no. </string>
     <string name="sample_widget_number">0776 494 7699</string>
     <string name="sample_logo_descrp">Cafe Image</string>
     <string name="todo">TODO</string>
+    <string name="fav_button_description">Favorite Button</string>
+    <string name="separator_line">separator line</string>
+    <string name="logo_splash_image">logo image</string>
     <!--<string name="todo">TODO2</string>-->
     <!--<string name="todo2">TODO3</string>-->
 </resources>

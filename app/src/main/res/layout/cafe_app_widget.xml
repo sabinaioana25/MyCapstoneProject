@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
             android:layout_weight="1"
+            android:contentDescription="@string/sample_logo_descrp"
             android:adjustViewBounds="true"
             android:src="@drawable/logo_sample" />
 
