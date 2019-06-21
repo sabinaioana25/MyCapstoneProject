@@ -1,5 +1,5 @@
 # Android Developer Nanodegree Program | Capstone Project
-Blends was made as part of Udacity's Android Developer Nanodegree Program. Blends offers users the possibility to search for small, independent coffee shops in the city they are living (only available in London at the moment). What makes this different from all other coffee shop apps is that the cafes displayed are unique, hippie and offer a great caffeinated beverages for anyone who feels adventuruos and wishes to experience new tastes.
+Blends was made as part of Udacity's Android Developer Nanodegree Program. Blends offers users the possibility to search for small, independent coffee shops in the city they are living (only available in London at the moment). What makes this different from all other coffee shop apps is that the cafes displayed are unique, hippie and offer a great caffeinated beverages for anyone who feels adventurous and wishes to experience new tastes.
 
 # Features
 - Explore the map for cafes in your area 
