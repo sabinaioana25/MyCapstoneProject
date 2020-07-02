@@ -7,7 +7,7 @@ android {
             keyAlias 'Udacity'
             keyPassword ' '
             storeFile file("${rootDir}/keystore.jks")
-            storePassword 'parola'
+            storePassword ' '
         }
     }
     compileSdkVersion 28
