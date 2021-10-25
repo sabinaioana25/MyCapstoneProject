@@ -136,7 +136,7 @@ public class PlaceAutoCompleteAdapter extends ArrayAdapter<AutocompletePredictio
                 // Skip the autocomplete query if no constraints are given.
                 if (constraint != null) {
                     // Query the autocomplete API for the (constraint) search string.
-                    filterData = getAutocomplete(constraint);
+                    filterData = getAutocomplete(null);
                 }
 
                 results.values = filterData;

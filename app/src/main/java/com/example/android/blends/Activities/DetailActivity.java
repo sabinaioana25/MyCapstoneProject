@@ -1,25 +1,33 @@
 package com.example.android.blends.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Parcelable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Toast;;
 
 import com.example.android.blends.Loaders.DetailPlacesLoader;
 import com.example.android.blends.Objects.PlaceModel;
@@ -214,6 +222,7 @@ public class DetailActivity extends
     public void onLoaderReset(Loader loader) {
     }
 
+    @SuppressLint("Range")
     private void populatePlaceValues(Context context, final Object object, int type) {
         switch (type) {
             case ID_CURSOR_DETAIL_PLACES:
@@ -286,10 +295,9 @@ public class DetailActivity extends
         // place rating
         TextView tvPlaceOverallRating = findViewById(R.id.textViewOverallRatingValue);
         tvPlaceOverallRating.setText(placeOverallRating);
-
-
     }
 
+    @SuppressLint("Range")
     private void populateReviewValues(final Object object, int type) {
         reviewsEntryList = new ArrayList<>();
         switch (type) {

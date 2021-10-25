@@ -1,10 +1,13 @@
 package com.example.android.blends.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +67,8 @@ public class PlacesAdapter extends
         Picasso.get()
                 .load(cafeImage)
                 .into(holder.vhCafeImage);
+
+        Log.d("print me something", cafeName + cafeAddress);
     }
 
     @Override
@@ -78,6 +83,7 @@ public class PlacesAdapter extends
         return 0;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void insertList(Object data) {
         placeList.clear();
         if (data != null) {
@@ -95,13 +101,13 @@ public class PlacesAdapter extends
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void deleteItemsInList() {
         placeList.clear();
         notifyDataSetChanged();
     }
 
     public interface PlacesDetailClickHandler {
-
         void onItemClick(String id);
     }
 

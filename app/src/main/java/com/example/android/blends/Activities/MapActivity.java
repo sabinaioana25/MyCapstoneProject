@@ -1,6 +1,7 @@
 package com.example.android.blends.Activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -13,12 +14,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -112,7 +113,6 @@ public class MapActivity extends AppCompatActivity implements
     private ArrayList<Geofence> mGeofenceList;
     private Context context;
     private String details;
-
 
     private GeofencingClient geofencingClient;
     private static final int PLACE_PICKER_REQUEST = 1;
@@ -263,7 +263,6 @@ public class MapActivity extends AppCompatActivity implements
         hideKeyboard();
     }
 
-
     private void moveCameraForTitle(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveCamera: moving the camera to lat: " + latLng.latitude + ", lng: " +
                 latLng.longitude);
@@ -347,6 +346,7 @@ public class MapActivity extends AppCompatActivity implements
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = getPlace(this, data);
@@ -443,6 +443,7 @@ public class MapActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         mLocationPermissionGranted = false;
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
@@ -554,6 +555,7 @@ public class MapActivity extends AppCompatActivity implements
         }
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private PendingIntent getGeofencePendingIntent() {
         Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -590,11 +592,12 @@ public class MapActivity extends AppCompatActivity implements
         return builder.build();
     }
 
+    @SuppressLint("NewApi")
     private void sendNotification(String notificationDetails) {
 
         details = notificationDetails;
         Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        @SuppressLint({"NewApi", "LocalSuppress"}) TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
 

@@ -1,8 +1,11 @@
 package com.example.android.blends.Utilities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+
+import com.example.android.blends.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,10 +17,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class NetworkUtils {
 
-    private static final String PLACES_API_KEY = "AIzaSyAjdGsFkv2-PUTi2I2TsiP7PIZ_bn7vrDA";
+//    private static final String API_KEY = "AIzaSyAjdGsFkv2-PUTi2I2TsiP7PIZ_bn7vrDA";
+    public static final String API_KEY = BuildConfig.API_KEY;
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     // detail API
@@ -50,7 +55,6 @@ public class NetworkUtils {
 
     private static final int READ_TIME_OUT = 1000;
     private static final int CONN_TIME_OUT = 1001;
-    Context context;
 
     private NetworkUtils() { }
 
@@ -90,8 +94,8 @@ public class NetworkUtils {
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,
-                    Charset.forName("UTF-8"));
+            @SuppressLint({"NewApi", "LocalSuppress"}) InputStreamReader inputStreamReader = new InputStreamReader(inputStream,
+                    StandardCharsets.UTF_8);
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line = bufferedReader.readLine();
@@ -123,8 +127,9 @@ public class NetworkUtils {
                 .appendQueryParameter(URL_TYPES_KEY, URL_TYPES_VALUE)
                 .appendQueryParameter(URL_PATH_FIELDS_KEY, URL_PATH_FIELDS_VALUE)
                 .appendQueryParameter(URL_KEYWORD_KEY, URL_KEYWORD_VALUE)
-                .appendQueryParameter(URL_API_KEY, PLACES_API_KEY)
+                .appendQueryParameter(URL_API_KEY, API_KEY)
                 .build();
+
         try {
             Log.w(TAG, "buildPlaceListUrl: " + URLDecoder.decode(builder.build().toString(),
                     "UTF-8"));
@@ -146,7 +151,7 @@ public class NetworkUtils {
                 .appendPath(URL_PATH_FORMAT)
                 .appendQueryParameter(URL_PATH_PLACE_ID_KEY, placeId)
                 .appendQueryParameter(URL_PATH_FIELDS_KEY, URL_PATH_FIELDS_VALUE)
-                .appendQueryParameter(URL_API_KEY, PLACES_API_KEY)
+                .appendQueryParameter(URL_API_KEY, API_KEY)
                 .build();
         try {
             Log.w(TAG, "buildPlaceListUrl: " + URLDecoder.decode(uriBuilderDetailPlace.build()
@@ -167,7 +172,7 @@ public class NetworkUtils {
                 .appendPath(URL_PATH_PHOTO)
                 .appendQueryParameter(URL_IMAGE_WIDTH_KEY, URL_IMAGE_WIDTH_VALUE)
                 .appendQueryParameter(URL_PATH_PHOTO_REFERENCE_KEY, image)
-                .appendQueryParameter(URL_API_KEY, PLACES_API_KEY)
+                .appendQueryParameter(URL_API_KEY, API_KEY)
                 .build();
         try {
             URL decodedUrl = new URL(URLDecoder.decode(uriBuilderImage.build().toString(),

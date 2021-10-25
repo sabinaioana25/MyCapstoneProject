@@ -7,16 +7,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-
     private boolean isConnected() {
         ConnectivityManager manager = (ConnectivityManager) this.getSystemService(Context
                 .CONNECTIVITY_SERVICE);
@@ -122,16 +121,15 @@ public class MainActivity extends AppCompatActivity implements
     @NonNull
     @Override
     public Loader onCreateLoader(int i, @Nullable Bundle bundle) {
+        Loader result;
         placesListAdapter.deleteItemsInList();
-        switch (i) {
-            case ID_CURSOR_PLACE_LOADER:
-                return new CursorLoader(this, PlacesContract.PlacesEntry.PLACES_CONTENT_URI,
-                        listProjection, null, null, null);
-            case ID_PLACE_LOADER:
-                return new PlacesLoader(this, NetworkUtils.buildPlaceListUrl(this).toString());
-            default:
-                return new PlacesLoader(this, NetworkUtils.buildPlaceListUrl(this).toString());
+        if (i == ID_CURSOR_PLACE_LOADER) {
+            result = new CursorLoader(this, PlacesContract.PlacesEntry.PLACES_CONTENT_URI,
+                    listProjection, null, null, null);
+        } else {
+            result = new PlacesLoader(this, NetworkUtils.buildPlaceListUrl(this).toString());
         }
+        return result;
     }
 
     @Override
